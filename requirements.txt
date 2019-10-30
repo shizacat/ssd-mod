@@ -1,0 +1,6 @@
+docopt
+voluptuous
+cython
+pycocotools
+tensorboard
+tqdm
