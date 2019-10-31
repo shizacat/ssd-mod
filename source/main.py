@@ -182,7 +182,6 @@ def train(args):
     # Train
     for epoch in range(start_epoch, args["--epochs"]):
         start_epoch_time = time.time()
-        scheduler.step()
         loss_epoch, = train_loop(
             ssd, loss_func,
             epoch,
@@ -193,6 +192,7 @@ def train(args):
             # logger
             is_cuda=use_cuda
         )
+        scheduler.step()
         end_epoch_time = time.time() - start_epoch_time
         total_time += end_epoch_time
 
