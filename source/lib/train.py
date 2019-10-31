@@ -34,23 +34,6 @@ def train_loop(
             ploc, plabel = model(imgs)
             ploc, plabel = ploc.float(), plabel.float()
 
-            # Вроде как этот кусок повторяется
-            # Get Graund Truth
-            # N = imgs.shape[0]  # batch size
-            # gloc = torch.zeros(
-            #     (N, encoder.dboxes.size(0), encoder.dboxes.size(1)),
-            #     dtype=torch.float,
-            #     requires_grad=False
-            # )
-            # glabel = torch.zeros(
-            #     (N, encoder.dboxes.size(0)),
-            #     dtype=torch.long,
-            #     requires_grad=False
-            # )
-            # for i, (bbox, label) in enumerate(zip(bboxes, labels)):
-            #     gloc[i], glabel[i] = encoder.encode(bbox, label)
-            # Nx8732x4, Nx8732
-
             gloc, glabel = bboxes, labels
             gloc = gloc.transpose(1, 2).contiguous()
 
