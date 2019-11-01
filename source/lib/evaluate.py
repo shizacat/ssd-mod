@@ -5,6 +5,7 @@
 import math
 
 import torch
+import numpy as np
 from pycocotools.cocoeval import COCOeval
 from tqdm import tqdm
 
