@@ -2,10 +2,12 @@
 Оценка качества модели
 """
 
+import torch
 from pycocotools.cocoeval import COCOeval
 
 
-def evaluate(model, dataloader, encoder, cocoGt):
+@torch.no_grad()
+def evaluate(model, dataloader, encoder, cocoGt, is_cuda=False):
     """
     По сути считает mAP
     """
@@ -21,6 +23,9 @@ def evaluate(model, dataloader, encoder, cocoGt):
         imgs_size = data[2]
         bboxes = data[3]
         labels = data[4]
+
+        if is_cuda:
+            imgs = imgs.cuda()
 
         # Get predictions
         ploc, plabel = model(imgs)
@@ -48,7 +53,7 @@ def evaluate(model, dataloader, encoder, cocoGt):
                     (loc_[2] - loc_[0]) * wtot,
                     (loc_[3] - loc_[1]) * htot,
                     prob_,
-                    inv_map[label_]  # Метка из набора данных
+                    inv_map[int(label_)]  # Метка из набора данных
                 ])
 
     ret = np.array(ret).astype(np.float32)
