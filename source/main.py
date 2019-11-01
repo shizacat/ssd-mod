@@ -167,7 +167,9 @@ def train(args):
 
     # Evaluate
     if args["--mode"] == "evaluate":
-        acc = evaluate(ssd, val_dataloader, encoder, val_coco_gt)
+        acc = evaluate(
+            ssd, val_dataloader, encoder, val_coco_gt, is_cuda=use_cuda
+        )
         print('Model precision {} mAP'.format(acc))
         return
 
@@ -204,7 +206,9 @@ def train(args):
             )
 
         # calculate val precision
-        acc = evaluate(ssd, val_dataloader, encoder, val_coco_gt)
+        acc = evaluate(
+            ssd, val_dataloader, encoder, val_coco_gt, is_cuda=use_cuda
+        )
 
         # log
         batches_count = math.ceil(
