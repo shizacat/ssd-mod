@@ -31,11 +31,16 @@ def train_loop(
             bboxes = data[3]
             labels = data[4]
 
+            if is_cuda:
+                imgs = imgs.cuda()
             ploc, plabel = model(imgs)
             ploc, plabel = ploc.float(), plabel.float()
 
             gloc, glabel = bboxes, labels
             gloc = gloc.transpose(1, 2).contiguous()
+            if is_cuda:
+                gloc = gloc.cuda()
+                glabel = glabel.cuda()
 
             # ---
             loss = loss_func(ploc, plabel, gloc, glabel)
