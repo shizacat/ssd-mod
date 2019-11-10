@@ -1,6 +1,7 @@
 docopt
 voluptuous
 cython
-pycocotools
+# pycocotools
+git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI
 tensorboard
 tqdm

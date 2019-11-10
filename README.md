@@ -12,4 +12,4 @@
 
 # Использованы библиотеки
 
-- https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools - для работы с coco.
+- https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools - для работы с coco. Устанавливать из git, а то в python3 работать не будет.
