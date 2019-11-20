@@ -19,7 +19,7 @@ def evaluate(model, dataloader, encoder, cocoGt, is_cuda=False):
 
     inv_map = {v: k for k, v in dataloader.dataset.label_map.items()}
 
-    ret = []
+    ret = np.zeros((0, 7), dtype=np.float32)
 
     batches_count = math.ceil(
         len(dataloader.dataset) / dataloader.batch_size
@@ -56,8 +56,9 @@ def evaluate(model, dataloader, encoder, cocoGt, is_cuda=False):
                     continue
 
                 htot, wtot = imgs_size[0][idx], imgs_size[1][idx]
+                ret_tmp = []
                 for loc_, label_, prob_ in zip(*result):
-                    ret.append([
+                    ret_tmp.append([
                         imgs_id[idx],
                         loc_[0] * wtot,
                         loc_[1] * htot,
@@ -66,10 +67,12 @@ def evaluate(model, dataloader, encoder, cocoGt, is_cuda=False):
                         prob_,
                         inv_map[int(label_)]  # Метка из набора данных
                     ])
+                ret = np.vstack((
+                    ret,
+                    np.array(ret_tmp).astype(np.float32)
+                ))
 
             progress_bar.update()
-
-    ret = np.array(ret).astype(np.float32)
 
     cocoDt = cocoGt.loadRes(ret)
 
