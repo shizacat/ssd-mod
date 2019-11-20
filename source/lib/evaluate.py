@@ -55,7 +55,7 @@ def evaluate(model, dataloader, encoder, cocoGt, is_cuda=False):
                     print("No object detected in idx: {}".format(idx))
                     continue
 
-                htot, wtot = imgs_size[idx]
+                htot, wtot = imgs_size[0][idx], imgs_size[1][idx]
                 for loc_, label_, prob_ in zip(*result):
                     ret.append([
                         imgs_id[idx],
