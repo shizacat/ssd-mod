@@ -60,7 +60,9 @@ def train_loop(
                 )
             )
 
-    return loss_epoch,
+    loss_avg = loss_epoch / batches_count
+
+    return loss_avg
 
 
 def load_checkpoint(model, checkpoint: str):

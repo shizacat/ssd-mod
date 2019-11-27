@@ -184,7 +184,7 @@ def train(args):
     # Train
     for epoch in range(start_epoch, args["--epochs"]):
         start_epoch_time = time.time()
-        loss_epoch, = train_loop(
+        loss_avg = train_loop(
             ssd, loss_func,
             epoch,
             optimizer,
@@ -211,11 +211,6 @@ def train(args):
         )
 
         # log
-        batches_count = math.ceil(
-            len(train_dataloader.dataset) / train_dataloader.batch_size
-        )
-        loss_avg = loss_epoch / batches_count
-
         writer.add_scalar("Loss Avg/train", loss_avg, epoch)
         writer.add_scalar("Accuracy/val [mAP]", acc, epoch)
         writer.add_scalar("Time Epoch, ms", end_epoch_time, epoch)
